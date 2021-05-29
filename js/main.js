@@ -269,10 +269,12 @@ $('#txt-search').keyup(function(){
 	}
 	
 	var regex = new RegExp(searchField, "i");
-	var output = '<select name="search-select" id="search-select" class="search-select"><option value="0">Any</option>';
+	var output = '<select name="search-select" id="search-select" class="search-select"><option value="0">Select here</option>';
 	var count = 1;
 	  $.each(facilityData, function(key, val){
 		if ((val.name.search(regex) != -1) || (val.official_name.search(regex) != -1)) {
+			let name = val.official_name
+			console.log(name)
 		  output += '<option value ="'+val.official_name+'">' + val.official_name + '</option>';
 		//   output += '<p>' + val.county + '</p>'
 		//   output += '</div>';
