@@ -1,8 +1,8 @@
 var myMap = function() {
 
 	var	options = {
-		zoom: 4,
-		center: new google.maps.LatLng(1,38),
+		zoom: 6.3,
+		center: new google.maps.LatLng(0.922183, 37.913444),
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
 
@@ -39,19 +39,13 @@ var myMap = function() {
 
 		for( i=0; i < facilities.length; i++ ) {
 			var facility = facilities[i];
-			console.log(facility)
-
+			// console.log(facility)
 			// if its already on the map, dont put it there again
 			if( markerList.indexOf(facility.id) !== -1 ) continue;
 			if (facility.lat_long !==null){
 			var lat = facility.lat_long[0],
 				lng = facility.lat_long[1],
-				markerId = facility.facility_type_name;
-			}
-			else{
-				var lat = -0.23445,
-				lng = 34.636192,
-				markerId = facility.facility_type_name;
+				markerId = facility.id;
 			}
 			var infoWindow = new google.maps.InfoWindow({
 				maxWidth: 400
@@ -69,7 +63,7 @@ var myMap = function() {
 			markerList.push(facility.id);
 
 			if( j > 10 ) j = 1; // for lorempixel, the thumbnail image
-			var content = ['<div class="iw"><img src="http://lorempixel.com/90/90/facilities/',
+			var content = ['<div class="iw"><img src="http://lorempixel.com/90/90/abstract/',
 				j, '" width="90" height="90">', '<div class="iw-text"><strong>', facility.name,
 				'</strong><br>County: ', facility.county, '<br>keph_level: ', facility.keph_level_name,
 				'<br>Owner: ', facility.owner_name, '</div></div>'].join('');
@@ -107,7 +101,7 @@ var myMap = function() {
 	// default all filters off
 	var filter = {
 		keph_level_name: 0,
-		college: 0,
+		county: 0,
 		from: 0
 	}
 	var filterMap;
@@ -190,8 +184,8 @@ var myMap = function() {
 			return filterByString('keph_level_name', value);
 		},
 		
-		college: function( value ) {
-			return filterByString('college', value);
+		county: function( value ) {
+			return filterByString('county_name', value);
 		},
 
 		from: function( value ) {
@@ -211,8 +205,8 @@ var myMap = function() {
 		for( var i=0; i < facilityData.length; i++ ) {
 	
 			var facility = facilityData[i];
+			// console.log("filtering by string"+ facility)
 			if( facility[dataProperty] == value ) {
-				console.log(facility)
 				facilities.push( facility );
 			} else {
 				removefacilityMarker( facility.id );
@@ -245,7 +239,7 @@ var myMap = function() {
 	function resetFilter() {
 		filter = {
 			keph_level_name: 0,
-			college: 0,
+			county: 0,
 			from: 0
 		}
 	}
@@ -284,8 +278,8 @@ $(function() {
 		myMap.filterCtrl('keph_level_name', this.value);
 	});
 
-	$('.college-select').on('change', function() {
-		myMap.filterCtrl('college', this.value);
+	$('.county-select').on('change', function() {
+		myMap.filterCtrl('county', this.value);
 	});
 
 	$('.from-select').on('change', function() {

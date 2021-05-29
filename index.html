@@ -6,6 +6,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href='./css/main.css' rel='stylesheet' type='text/css'>
   </head>
   
@@ -27,6 +28,12 @@
 								<button id="load-btn" class="load-btn button is-success">Reload data</button>
 							</div>
 							<div class="filter-set">
+								<form class="form-inline my-2 my-lg-0">
+									<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+									<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+								  </form>
+							</div>
+							<div class="filter-set">
 								<label for="keph_level_name-select">Keph levels:</label>
 								<select name="keph_level_name-select" id="keph_level_name-select" class="keph_level_name-select">
 									<option value="0">Any</option>
@@ -37,14 +44,56 @@
 								</select>
 							</div>
 							<div class="filter-set">
-								<label for="college-select">College:</label>
-								<select name="college-select" id="college-select" class="college-select">
+								<label for="county-select">county:</label>
+								<select name="county-select" id="county-select" class="county-select">
 									<option value="0">Any</option>
-									<option value="MSU">Michigan State University</option>
-									<option value="CMU">Central Michigan University</option>
-									<option value="MTU">Michigan Tech University</option>
-									<option value="FSU">Ferris State University</option>
-									<option value="UM">University of Michigan</option>
+									<option value='Baringo'>Baringo</option>
+									<option value='Bomet'>Bomet</option>
+									<option value='Bungoma'>Bungoma</option>
+									<option value='Busia'>Busia</option>
+									<option value='Elgeyo-Marakwet'>Elgeyo-Marakwet</option>
+									<option value='Embu'>Embu</option>
+									<option value='Garissa'>Garissa</option>
+									<option value='Homa Bay'>Homa Bay</option>
+									<option value='Isiolo'>Isiolo</option>
+									<option value='Kajiado'>Kajiado</option>
+									<option value='Kakamega'>Kakamega</option>
+									<option value='Kericho'>Kericho</option>
+									<option value='Kiambu'>Kiambu</option>
+									<option value='Kilifi'>Kilifi</option>
+									<option value='Kirinyaga'>Kirinyaga</option>
+									<option value='Kisii'>Kisii</option>
+									<option value='Kisumu'>Kisumu</option>
+									<option value='Kitui'>Kitui</option>
+									<option value='Kwale'>Kwale</option>
+									<option value='Laikipia'>Laikipia</option>
+									<option value='Lamu'>Lamu</option>
+									<option value='Machakos'>Machakos</option>
+									<option value='Makueni'>Makueni</option>
+									<option value='Mandera'>Mandera</option>
+									<option value='Marsabit'>Marsabit</option>
+									<option value='Meru'>Meru</option>
+									<option value='Migori'>Migori</option>
+									<option value='Mombasa'>Mombasa</option>
+									<option value='Muranga'>Murang'a</option>
+									<option value='Nairobi City'>Nairobi City</option>
+									<option value='Nakuru'>Nakuru</option>
+									<option value='Nandi'>Nandi</option>
+									<option value='Narok'>Narok</option>
+									<option value='Nyamira'>Nyamira</option>
+									<option value='Nyandarua'>Nyandarua</option>
+									<option value='Nyeri'>Nyeri</option>
+									<option value='Samburu'>Samburu</option>
+									<option value='Siaya'>Siaya</option>
+									<option value='Taita-Taveta'>Taita-Taveta</option>
+									<option value='Tana River'>Tana River</option>
+									<option value='Tharaka-Nithi'>Tharaka-Nithi</option>
+									<option value='Trans Nzoia'>Trans Nzoia</option>
+									<option value='Turkana'>Turkana</option>
+									<option value='Uasin Gishu'>Uasin Gishu</option>
+									<option value='Vihiga'>Vihiga</option>
+									<option value='West Pokot'>West Pokot</option>
+									<option value='wajir'>wajir</option>
 								</select>
 							</div>
 							<div class="filter-set">
@@ -66,7 +115,7 @@
 	</div> <!-- #st-container -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-2.0.3.min.js"><\/script>')</script>
-    
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
 
     <script src="js/data.js"></script>
