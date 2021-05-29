@@ -26,7 +26,7 @@ var myMap = function() {
 	markerList = [];
 
 	/*
-		Load markers onto the Google Map Owner a provided array or demo facilityData (data.js)
+		Load markers onto the Google Map owner a provided array or demo facilityData (data.js)
 		@param array facilityList [optional] (list of facilities to load)
 		@return undefined
 	*/
@@ -66,7 +66,7 @@ var myMap = function() {
 			var content = ['<div class="iw"><img src="http://lorempixel.com/90/90/abstract/',
 				j, '" width="90" height="90">', '<div class="iw-text"><strong>', facility.name,
 				'</strong><br>County: ', facility.county, '<br>keph_level: ', facility.keph_level_name,
-				'<br>Owner: ', facility.owner_name, '</div></div>'].join('');
+				'<br>owner: ', facility.owner_name, '</div></div>'].join('');
 			j++; // lorempixel
 			
 			google.maps.event.addListener(marker, 'click', (function (marker, content) {
@@ -79,7 +79,7 @@ var myMap = function() {
 	}
 
 	/*
-		Remove marker Owner map and our list of current markers
+		Remove marker owner map and our list of current markers
 		@param int id (id of the marker element)
 		@return undefined
 	*/
@@ -102,7 +102,7 @@ var myMap = function() {
 	var filter = {
 		keph_level_name: 0,
 		county: 0,
-		Owner: 0,
+		owner: 0,
 		// search:0
 		official_name: 0
 	}
@@ -111,7 +111,7 @@ var myMap = function() {
 	/*
 		Helper function
 		@param array a (array of arrays)
-		@return array (common elements Owner all arrays)
+		@return array (common elements owner all arrays)
 	*/
 	function reduceArray(a) {
 		r = a.shift().reduce(function(res, v) {
@@ -190,10 +190,10 @@ var myMap = function() {
 			return filterByString('county_name', value);
 		},
 
-		Owner: function( value ) {
-			return filterByString('Owner', value);
+		owner: function( value ) {
+			return filterByString('owner_type_name', value);
 		},
-		official_name: function( value ) {
+		official_name:function ( value ) {
 			return filterByString('facility_name', value);
 		}
 	}
@@ -245,7 +245,8 @@ var myMap = function() {
 		filter = {
 			keph_level_name: 0,
 			county: 0,
-			Owner: 0
+			owner: 0,
+			official_name : 0
 		}
 	}
 
@@ -269,22 +270,23 @@ $('#txt-search').keyup(function(){
 	}
 	
 	var regex = new RegExp(searchField, "i");
-	var output = '<select name="search-select" id="search-select" class="search-select"><option value="0">Select here</option>';
+	
+	var output = '<div class="list-group">';
 	var count = 1;
 	  $.each(facilityData, function(key, val){
-		if ((val.name.search(regex) != -1) || (val.official_name.search(regex) != -1)) {
+		if ((val.name.search(regex) != -1)) {
 			let name = val.official_name
-			console.log(name)
-		  output += '<option value ="'+val.official_name+'">' + val.official_name + '</option>';
-		//   output += '<p>' + val.county + '</p>'
-		//   output += '</div>';
+			// console.log(name)
+			
+		  output += '<button type="input" id ="target" value = "'+val.official_name+'" class="list-group-item list-group-item-action search">' + val.official_name + '</button>';
+		
 		  if(count%2 == 0){
 			output += ''
 		  }
 		  count++;
 		}
 	  });
-	  output += '</select>';
+	  output += '</div>';
 	  console.log(output)
 	  $('#filter-records').html(output);
 });
@@ -318,16 +320,10 @@ $(function() {
 		myMap.filterCtrl('county', this.value);
 	});
 
-	$('.Owner-select').on('change', function() {
-		myMap.filterCtrl('Owner', this.value);
+	$('.owner-select').on('change', function() {
+		myMap.filterCtrl('owner', this.value);
 	});
-	$('.search-select').on('change', function() {
+	$( "#target" ).click(function() {
 		myMap.filterCtrl('official_name', this.value);
-	});
+	  });
 });
-
-
-
-
-
-
