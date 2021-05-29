@@ -26,7 +26,7 @@ var myMap = function() {
 	markerList = [];
 
 	/*
-		Load markers onto the Google Map from a provided array or demo facilityData (data.js)
+		Load markers onto the Google Map Owner a provided array or demo facilityData (data.js)
 		@param array facilityList [optional] (list of facilities to load)
 		@return undefined
 	*/
@@ -79,7 +79,7 @@ var myMap = function() {
 	}
 
 	/*
-		Remove marker from map and our list of current markers
+		Remove marker Owner map and our list of current markers
 		@param int id (id of the marker element)
 		@return undefined
 	*/
@@ -102,14 +102,16 @@ var myMap = function() {
 	var filter = {
 		keph_level_name: 0,
 		county: 0,
-		from: 0
+		Owner: 0,
+		// search:0
+		official_name: 0
 	}
 	var filterMap;
 
 	/*
 		Helper function
 		@param array a (array of arrays)
-		@return array (common elements from all arrays)
+		@return array (common elements Owner all arrays)
 	*/
 	function reduceArray(a) {
 		r = a.shift().reduce(function(res, v) {
@@ -188,8 +190,11 @@ var myMap = function() {
 			return filterByString('county_name', value);
 		},
 
-		from: function( value ) {
-			return filterByString('from', value);
+		Owner: function( value ) {
+			return filterByString('Owner', value);
+		},
+		official_name: function( value ) {
+			return filterByString('facility_name', value);
 		}
 	}
 
@@ -240,7 +245,7 @@ var myMap = function() {
 		filter = {
 			keph_level_name: 0,
 			county: 0,
-			from: 0
+			Owner: 0
 		}
 	}
 
@@ -252,6 +257,35 @@ var myMap = function() {
 	};
 }();
 
+
+// searching function
+
+
+$('#txt-search').keyup(function(){
+	var searchField = $(this).val();
+	if(searchField === '')  {
+		$('#filter-records').html('');
+		return;
+	}
+	
+	var regex = new RegExp(searchField, "i");
+	var output = '<select name="search-select" id="search-select" class="search-select"><option value="0">Any</option>';
+	var count = 1;
+	  $.each(facilityData, function(key, val){
+		if ((val.name.search(regex) != -1) || (val.official_name.search(regex) != -1)) {
+		  output += '<option value ="'+val.official_name+'">' + val.official_name + '</option>';
+		//   output += '<p>' + val.county + '</p>'
+		//   output += '</div>';
+		  if(count%2 == 0){
+			output += ''
+		  }
+		  count++;
+		}
+	  });
+	  output += '</select>';
+	  console.log(output)
+	  $('#filter-records').html(output);
+});
 
 $(function() {
 
@@ -282,10 +316,14 @@ $(function() {
 		myMap.filterCtrl('county', this.value);
 	});
 
-	$('.from-select').on('change', function() {
-		myMap.filterCtrl('from', this.value);
+	$('.Owner-select').on('change', function() {
+		myMap.filterCtrl('Owner', this.value);
+	});
+	$('.search-select').on('change', function() {
+		myMap.filterCtrl('official_name', this.value);
 	});
 });
+
 
 
 
