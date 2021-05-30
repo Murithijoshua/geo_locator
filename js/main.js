@@ -31,20 +31,21 @@ var myMap = function() {
 		@return undefined
 	*/
 	function loadMarkers(facilityList) {
-
 		// optional argument of facility
 		var facilities = ( typeof facilityList !== 'undefined' ) ? facilityList : facilityData;
-
+		
 		var j = 1; // for lorempixel
 
 		for( i=0; i < facilities.length; i++ ) {
 			var facility = facilities[i];
-			// console.log(facility)
+			facility['id'] = i
+			console.log(facility)
 			// if its already on the map, dont put it there again
 			if( markerList.indexOf(facility.id) !== -1 ) continue;
 			if (facility.lat_long !==null){
 			var lat = facility.lat_long[0],
 				lng = facility.lat_long[1],
+
 				markerId = facility.id;
 			}
 			var infoWindow = new google.maps.InfoWindow({
@@ -203,7 +204,9 @@ var myMap = function() {
 		@param string dataProperty (the key that will be filtered upon)
 		@param string value (selected filter value)
 		@return array (facilities that made it through the filter)
+
 	*/
+	
 	function filterByString( dataProperty, value ) {
 		var facilities = [];
 
@@ -259,7 +262,6 @@ var myMap = function() {
 }();
 
 
-// searching function
 
 
 $('#txt-search').keyup(function(){
@@ -276,7 +278,7 @@ $('#txt-search').keyup(function(){
 	  $.each(facilityData, function(key, val){
 		if ((val.name.search(regex) != -1)) {
 			let name = val.official_name
-			// console.log(name)
+			console.log(name)
 			
 		  output += '<button type="input" id ="target" value = "'+val.official_name+'" class="list-group-item list-group-item-action search">' + val.official_name + '</button>';
 		
@@ -289,6 +291,9 @@ $('#txt-search').keyup(function(){
 	  output += '</div>';
 	  console.log(output)
 	  $('#filter-records').html(output);
+
+	  
+	
 });
 
 $(function() {
@@ -311,7 +316,7 @@ $(function() {
 			$this.removeClass('is-success').addClass('is-default');
 		}
 	});
-
+	
 	$('.keph_level_name-select').on('change', function() {
 		myMap.filterCtrl('keph_level_name', this.value);
 	});
@@ -322,8 +327,14 @@ $(function() {
 
 	$('.owner-select').on('change', function() {
 		myMap.filterCtrl('owner', this.value);
+	
 	});
-	$( "#target" ).click(function() {
+	
+	$('#target').on('change', function() {
 		myMap.filterCtrl('official_name', this.value);
-	  });
+		console.log(this.value)
+	
+	});
+	
 });
+

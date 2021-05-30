@@ -28659,3 +28659,11 @@ var facilityData =[
             ]
           }
         ]
+
+// function replaceid(data){
+//   for(let i = 0; i<length.data; i++){
+//     console.log(data.id)
+
+//   }
+// }
+// replaceid(facilityData)
