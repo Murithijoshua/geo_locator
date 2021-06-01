@@ -30,6 +30,7 @@ var myMap = function() {
 		@param array facilityList [optional] (list of facilities to load)
 		@return undefined
 	*/
+	
 	function loadMarkers(facilityList) {
 		// optional argument of facility
 		var facilities = ( typeof facilityList !== 'undefined' ) ? facilityList : facilityData;
@@ -39,7 +40,7 @@ var myMap = function() {
 		for( i=0; i < facilities.length; i++ ) {
 			var facility = facilities[i];
 			facility['id'] = i
-			console.log(facility)
+			// console.log(facility)
 			// if its already on the map, dont put it there again
 			if( markerList.indexOf(facility.id) !== -1 ) continue;
 			if (facility.lat_long !==null){
@@ -70,7 +71,7 @@ var myMap = function() {
 				'<br>owner: ', facility.owner_name, '</div></div>'].join('');
 			j++; // lorempixel
 			
-			google.maps.event.addListener(marker, 'click', (function (marker, content) {
+			google.maps.event.addListener(marker, 'mouseover', (function (marker, content) {
 				return function() {
 					infoWindow.setContent(content);
 					infoWindow.open(map, marker);
@@ -194,8 +195,8 @@ var myMap = function() {
 		owner: function( value ) {
 			return filterByString('owner_type_name', value);
 		},
-		official_name:function ( value ) {
-			return filterByString('facility_name', value);
+		official_name:function f1(objButton){
+			return filterByString('id', objButton.value);
 		}
 	}
 
@@ -263,7 +264,7 @@ var myMap = function() {
 
 
 
-
+let official;
 $('#txt-search').keyup(function(){
 	var searchField = $(this).val();
 	if(searchField === '')  {
@@ -277,10 +278,11 @@ $('#txt-search').keyup(function(){
 	var count = 1;
 	  $.each(facilityData, function(key, val){
 		if ((val.name.search(regex) != -1)) {
-			let name = val.official_name
-			console.log(name)
+			official= val.official_name
+			// console.log(val.id)
+
 			
-		  output += '<button type="input" id ="target" value = "'+val.official_name+'" class="list-group-item list-group-item-action search">' + val.official_name + '</button>';
+		  output += '<button type="input" onclick="f1(this)" value="'+val.id+'" class="list-group-item list-group-item-action search">' + val.official_name + '</button>';
 		
 		  if(count%2 == 0){
 			output += ''
@@ -295,6 +297,8 @@ $('#txt-search').keyup(function(){
 	  
 	
 });
+
+
 
 $(function() {
 
@@ -330,11 +334,15 @@ $(function() {
 	
 	});
 	
-	$('#target').on('change', function() {
+	$('#target').on('', function() {
 		myMap.filterCtrl('official_name', this.value);
-		console.log(this.value)
+		// console.log(this.value)
 	
 	});
 	
 });
 
+// function f1(objButton){  
+// 	let r = objButton.value;
+// 	myMap.filterCtrl('id', r)
+// 	}
